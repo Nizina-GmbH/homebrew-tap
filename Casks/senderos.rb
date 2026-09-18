@@ -17,7 +17,7 @@ cask "senderos" do
   desc "AI debugger for vibe-coded iOS/web projects — demo build"
   homepage "https://rebels.ai"
 
-  depends_on macos: ">= :ventura"   # electron-builder minimumSystemVersion 13.0
+  depends_on macos: :ventura        # >= Ventura (13.0); electron-builder minimumSystemVersion
   depends_on arch: :arm64           # dmg target is arm64-only
 
   app "Senderos.app"
