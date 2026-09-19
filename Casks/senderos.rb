@@ -11,14 +11,13 @@ cask "senderos" do
   # shasum -a 256 Senderos-<version>-arm64.dmg  (fill per release)
   sha256 "5bc0090bf71f623a11a6639d76b7b8d005bb2451646de2b59e3cb02d3efb44ca"
 
-  url "https://github.com/Nizina-GmbH/veyloq-releases/releases/download/v#{version}/Senderos-#{version}-arm64.dmg",
-      verified: "github.com/Nizina-GmbH/veyloq-releases/"
+  url "https://github.com/Nizina-GmbH/veyloq-releases/releases/download/v#{version}/Senderos-#{version}-arm64.dmg"
   name "Senderos"
   desc "AI debugger for vibe-coded iOS/web projects — demo build"
-  homepage "https://rebels.ai"
+  homepage "https://rebels.ai/"
 
-  depends_on macos: :ventura        # >= Ventura (13.0); electron-builder minimumSystemVersion
   depends_on arch: :arm64           # dmg target is arm64-only
+  depends_on macos: :ventura        # >= Ventura (13.0); electron-builder minimumSystemVersion
 
   app "Senderos.app"
 
@@ -26,18 +25,19 @@ cask "senderos" do
   # This build is AD-HOC signed only (codesign -s -), NOT Developer-ID signed or
   # notarized. macOS quarantines any cask download, and Gatekeeper blocks an
   # un-notarized app → without help the user hits "Senderos is damaged / from an
-  # unidentified developer" and it won't open. The postflight below strips
-  # com.apple.quarantine so the ad-hoc app launches. Homebrew 6.0 gates a tap's
-  # arbitrary postflight code behind `brew trust --cask` (the installer runs it).
+  # unidentified developer" and it won't open. The postflight_steps below strip
+  # com.apple.quarantine so the ad-hoc app launches. Homebrew 6.0+ gates a tap's
+  # arbitrary install steps behind `brew trust --cask` (the installer runs them).
   #
   # SECURITY TRADE-OFF: de-quarantine bypasses Gatekeeper's notarization check, so
   # a substituted DMG would run unchecked. It is acceptable ONLY because the tap +
   # release repo are ours and the download is sha256-pinned above (brew aborts on
   # mismatch). When a Developer ID (signing + notarization + staple) lands, DELETE
-  # this postflight — a notarized app launches by double-click with no bypass.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/Senderos.app"]
+  # these postflight_steps — a notarized app launches by double-click with no bypass.
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args:         ["-dr", "com.apple.quarantine", "{{appdir}}/Senderos.app"],
+        must_succeed: false
   end
 
   uninstall quit: "ai.rebels.nizina"
