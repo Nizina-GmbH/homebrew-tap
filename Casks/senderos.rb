@@ -7,9 +7,9 @@
 # Per release, update: version + sha256 (`shasum -a 256 Senderos-<version>-arm64.dmg`).
 # The release repo is Nizina-GmbH/veyloq-releases.
 cask "senderos" do
-  version "0.5.47"
+  version "0.5.48"
   # shasum -a 256 Senderos-<version>-arm64.dmg  (fill per release)
-  sha256 "30dae382520f2f726b570c2ab842c4706ddabda59b5c54985ba51dd71a8752d0"
+  sha256 "16da0dee11526fc443ee1389e0ae7c95287ebcdff3a6c06a6c0a6b38ca1987b7"
 
   url "https://github.com/Nizina-GmbH/veyloq-releases/releases/download/v#{version}/Senderos-#{version}-arm64.dmg"
   name "Senderos"
@@ -21,24 +21,8 @@ cask "senderos" do
 
   app "Senderos.app"
 
-  # F-01 (INTERIM — ad-hoc, no Apple Developer ID yet):
-  # This build is AD-HOC signed only (codesign -s -), NOT Developer-ID signed or
-  # notarized. macOS quarantines any cask download, and Gatekeeper blocks an
-  # un-notarized app → without help the user hits "Senderos is damaged / from an
-  # unidentified developer" and it won't open. The postflight_steps below strip
-  # com.apple.quarantine so the ad-hoc app launches. Homebrew 6.0+ gates a tap's
-  # arbitrary install steps behind `brew trust --cask` (the installer runs them).
-  #
-  # SECURITY TRADE-OFF: de-quarantine bypasses Gatekeeper's notarization check, so
-  # a substituted DMG would run unchecked. It is acceptable ONLY because the tap +
-  # release repo are ours and the download is sha256-pinned above (brew aborts on
-  # mismatch). When a Developer ID (signing + notarization + staple) lands, DELETE
-  # these postflight_steps — a notarized app launches by double-click with no bypass.
-  postflight_steps do
-    run "/usr/bin/xattr",
-        args:         ["-dr", "com.apple.quarantine", "{{appdir}}/Senderos.app"],
-        must_succeed: false
-  end
+  # Developer-ID signed + notarized + stapled (app AND dmg): Gatekeeper opens it
+  # directly, so no de-quarantine step is needed.
 
   uninstall quit: "ai.rebels.nizina"
 
