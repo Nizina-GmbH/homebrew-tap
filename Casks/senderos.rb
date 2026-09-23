@@ -7,9 +7,9 @@
 # Per release, update: version + sha256 (`shasum -a 256 Senderos-<version>-arm64.dmg`).
 # The release repo is Nizina-GmbH/veyloq-releases.
 cask "senderos" do
-  version "0.5.45"
+  version "0.5.47"
   # shasum -a 256 Senderos-<version>-arm64.dmg  (fill per release)
-  sha256 "97f231b1882bbc83f0955d9c6304e41284115221b7fc217524878b53bf438236"
+  sha256 "30dae382520f2f726b570c2ab842c4706ddabda59b5c54985ba51dd71a8752d0"
 
   url "https://github.com/Nizina-GmbH/veyloq-releases/releases/download/v#{version}/Senderos-#{version}-arm64.dmg"
   name "Senderos"
