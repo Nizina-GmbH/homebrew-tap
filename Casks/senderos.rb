@@ -30,8 +30,8 @@ cask "senderos" do
   # zap removes all of that plus app state.
   zap trash: [
     "~/.nizina",
-    "~/Library/Application Support/Senderos",
-    "~/Library/Logs/Senderos",
+    "~/Library/Application Support/@nizina/desktop",
+    "~/Library/Logs/@nizina/desktop",
     "~/Library/Preferences/ai.rebels.nizina.plist",
     "~/Library/Saved Application State/ai.rebels.nizina.savedState",
   ]
