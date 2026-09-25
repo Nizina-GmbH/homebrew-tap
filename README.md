@@ -20,7 +20,7 @@ brew install --cask Nizina-GmbH/tap/veyloq
 
 Update later: `brew upgrade --cask veyloq` · Uninstall: `brew uninstall --cask veyloq`
 
-Previously installed as `senderos`? `brew update && brew upgrade --cask senderos` migrates you to `veyloq`
+Previously installed as `senderos`? `brew update && brew trust nizina-gmbh/tap && brew upgrade --cask senderos` migrates you to `veyloq`
 automatically (see `cask_renames.json`).
 
 ## Requirements
