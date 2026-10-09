@@ -7,9 +7,9 @@
 # Per release, update: version + sha256 (`shasum -a 256 Veyloq-<version>-arm64.dmg`).
 # The release repo is Nizina-GmbH/veyloq-releases.
 cask "veyloq" do
-  version "0.5.60"
+  version "0.5.62"
   # shasum -a 256 Veyloq-<version>-arm64.dmg  (fill per release)
-  sha256 "83ea3a881de818127e9ec303fb531a6358fedeb6fb50064400782b3196753201"
+  sha256 "7a991ba53ed7fcd813075ac3729af02972ef86bfd53aa6322602f32a9b498ca0"
 
   url "https://github.com/Nizina-GmbH/veyloq-releases/releases/download/v#{version}/Veyloq-#{version}-arm64.dmg"
   name "Veyloq"
